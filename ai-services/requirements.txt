@@ -1,0 +1,13 @@
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+langchain==0.1.6
+langchain-openai==0.0.5
+langchain-community==0.0.17
+langgraph==0.0.20
+qdrant-client==1.7.3
+openai==1.10.0
+tiktoken==0.5.2
+python-dotenv==1.0.0
+httpx==0.26.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
