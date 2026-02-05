@@ -45,8 +45,7 @@ docker-compose up -d
 ```
 
 This will start:
-- PostgreSQL (port 5432)
-- Qdrant (port 6333)
+- PostgreSQL with pgvector (port 5432)
 - Backend API (port 8000)
 - AI Services (port 8001)
 - Frontend (port 3000)
@@ -56,7 +55,6 @@ This will start:
 - Frontend: http://localhost:3000
 - Backend API Docs: http://localhost:8000/docs
 - AI Services Docs: http://localhost:8001/docs
-- Qdrant Dashboard: http://localhost:6333/dashboard
 
 ## Development Workflow
 

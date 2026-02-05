@@ -6,11 +6,8 @@ class Settings(BaseSettings):
     LLM_MODEL: str = "gpt-4"
     LLM_TEMPERATURE: float = 0.7
     
-    # Vector Database
-    VECTOR_DB_TYPE: str = "qdrant"  # qdrant, weaviate, or chroma
-    VECTOR_DB_HOST: str = "localhost"
-    VECTOR_DB_PORT: int = 6333
-    VECTOR_DB_COLLECTION: str = "lms_documents"
+    # Database Configuration (PostgreSQL with pgvector)
+    DATABASE_URL: str = "postgresql://lms_user:lms_password@localhost:5432/lms_db"
     
     # Embedding Model
     EMBEDDING_MODEL: str = "text-embedding-3-small"

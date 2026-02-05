@@ -1,3 +1,21 @@
+-- Enable pgvector extension
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- Create document_embeddings table for vector search
+CREATE TABLE IF NOT EXISTS document_embeddings (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    embedding vector(1536),
+    source VARCHAR(500),
+    metadata JSONB DEFAULT '{}'::jsonb,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create index for vector similarity search
+CREATE INDEX IF NOT EXISTS document_embeddings_embedding_idx 
+ON document_embeddings USING ivfflat (embedding vector_cosine_ops)
+WITH (lists = 100);
+
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
@@ -117,6 +135,7 @@ CREATE INDEX idx_quiz_attempts_user_id ON quiz_attempts(user_id);
 CREATE INDEX idx_learning_paths_user_id ON learning_paths(user_id);
 CREATE INDEX idx_chat_history_user_id ON chat_history(user_id);
 CREATE INDEX idx_user_skills_user_id ON user_skills(user_id);
+CREATE INDEX idx_document_embeddings_source ON document_embeddings(source);
 
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()

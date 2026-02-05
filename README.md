@@ -42,7 +42,6 @@ npm run seed
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000/docs
 - **AI Services**: http://localhost:8001/docs
-- **Qdrant Dashboard**: http://localhost:6333/dashboard
 
 ## 📁 Project Structure
 
@@ -62,7 +61,7 @@ lms/
 
 - **Frontend**: React, TypeScript, Vite, React Router
 - **Backend**: FastAPI, Python, SQLAlchemy, PostgreSQL
-- **AI/ML**: LangGraph, LangChain, OpenAI, Qdrant (Vector DB)
+- **AI/ML**: LangGraph, LangChain, OpenAI, pgvector
 - **Infrastructure**: Docker, Docker Compose
 
 ## 📚 Key Features

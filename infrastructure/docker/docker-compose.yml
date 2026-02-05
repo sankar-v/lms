@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
+  # PostgreSQL Database with pgvector
   postgres:
-    image: postgres:16-alpine
+    image: pgvector/pgvector:pg16
     container_name: lms_postgres
     environment:
       POSTGRES_USER: lms_user
@@ -17,21 +17,6 @@ services:
       - ./database/seeds/sample_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U lms_user -d lms_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # Qdrant Vector Database
-  qdrant:
-    image: qdrant/qdrant:latest
-    container_name: lms_qdrant
-    ports:
-      - "6333:6333"
-      - "6334:6334"
-    volumes:
-      - qdrant_data:/qdrant/storage
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -62,14 +47,13 @@ services:
       dockerfile: ../infrastructure/docker/Dockerfile.ai-services
     container_name: lms_ai_services
     environment:
-      VECTOR_DB_HOST: qdrant
-      VECTOR_DB_PORT: 6333
+      DATABASE_URL: postgresql://lms_user:lms_password@postgres:5432/lms_db
       BACKEND_API_URL: http://backend:8000
       OPENAI_API_KEY: ${OPENAI_API_KEY}
     ports:
       - "8001:8001"
     depends_on:
-      qdrant:
+      postgres:
         condition: service_healthy
     volumes:
       - ./ai-services:/app
@@ -94,7 +78,6 @@ services:
 
 volumes:
   postgres_data:
-  qdrant_data:
 
 networks:
   default:

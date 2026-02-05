@@ -30,14 +30,14 @@ The LMS is built as a microservices architecture with three main components:
   - RAG pipeline for documentation Q&A
   - LangGraph agents for intelligent routing
   - Recommendation engine
-  - Vector database integration (Qdrant)
+  - Vector search using PostgreSQL with pgvector
 
 ## Data Flow
 
 ```
-User → Frontend → Backend API → PostgreSQL
-                     ↓
-                 AI Services → Vector DB (Qdrant)
+User → Frontend → Backend API → PostgreSQL (with pgvector)
+                     ↓              ↑
+                 AI Services --------+
                      ↓
                    LLM (OpenAI)
 ```
@@ -46,7 +46,7 @@ User → Frontend → Backend API → PostgreSQL
 
 1. **Frontend ↔ Backend**: REST API over HTTP
 2. **Backend ↔ AI Services**: HTTP with async/await
-3. **AI Services ↔ Vector DB**: Qdrant client SDK
+3. **AI Services ↔ PostgreSQL**: SQLAlchemy with pgvector extension
 4. **AI Services ↔ LLM**: OpenAI API
 
 ## Security
