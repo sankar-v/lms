@@ -1,14 +1,28 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict
 from src.agents.orchestrator import AgentOrchestrator
+from src.api.documents import router as documents_router
 from src.config import settings
 
 app = FastAPI(
     title="LMS AI Services",
-    description="AI Services for LMS - RAG and Recommendations",
+    description="AI Services for LMS - RAG, Document Ingestion, and Recommendations",
     version="1.0.0"
 )
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Configure for production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include document management routes
+app.include_router(documents_router)
 
 orchestrator = AgentOrchestrator()
 

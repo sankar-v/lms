@@ -7,7 +7,7 @@ interface User {
 }
 
 export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

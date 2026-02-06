@@ -88,9 +88,44 @@ RAG connects LLMs to internal documentation using embeddings and vector database
 ## 📖 Documentation
 
 - [Functional Requirements](FUNCTIONAL_REQUIREMENTS.md)
+- [**RAG Pipeline Guide**](ai-services/README_RAG.md) - **Start here for document ingestion!**
 - [Architecture Overview](docs/architecture/system-overview.md)
 - [API Documentation](docs/api/endpoints.md)
 - [Development Guide](docs/guides/development.md)
+
+## 🚀 RAG Pipeline Quick Start
+
+The RAG pipeline is production-ready and can be used **right now** to ingest and search documents:
+
+```bash
+# Install dependencies
+cd ai-services
+uv pip install -r requirements.txt
+
+# Start PostgreSQL
+cd ../infrastructure/docker
+docker-compose up postgres -d
+
+# Ingest your documents (CLI)
+cd ../../ai-services
+python -m src.cli ingest ../docs --pattern "*.md" --category documentation
+
+# Search documents
+python -m src.cli search "How do I deploy?" --top-k 5
+
+# View all documents
+python -m src.cli list
+
+# Get statistics
+python -m src.cli stats
+```
+
+**Three usage modes:**
+1. **CLI Tool**: Command-line interface for quick operations
+2. **Python SDK**: Programmatic access for custom workflows
+3. **REST API**: HTTP endpoints for remote integration
+
+See [RAG_PIPELINE.md](docs/RAG_PIPELINE.md) for complete documentation.
 
 ## 🧪 Development
 

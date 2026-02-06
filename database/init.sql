@@ -6,15 +6,30 @@ CREATE TABLE IF NOT EXISTS document_embeddings (
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
     embedding vector(1536),
+    document_id VARCHAR(255) NOT NULL,
+    chunk_id VARCHAR(255) UNIQUE NOT NULL,
     source VARCHAR(500),
     metadata JSONB DEFAULT '{}'::jsonb,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create index for vector similarity search
+-- Create indexes for vector similarity search and filtering
 CREATE INDEX IF NOT EXISTS document_embeddings_embedding_idx 
 ON document_embeddings USING ivfflat (embedding vector_cosine_ops)
 WITH (lists = 100);
+
+CREATE INDEX IF NOT EXISTS document_embeddings_document_id_idx 
+ON document_embeddings(document_id);
+
+CREATE INDEX IF NOT EXISTS document_embeddings_source_idx 
+ON document_embeddings(source);
+
+CREATE INDEX IF NOT EXISTS document_embeddings_metadata_idx 
+ON document_embeddings USING gin(metadata);
+
+CREATE INDEX IF NOT EXISTS document_embeddings_created_at_idx 
+ON document_embeddings(created_at DESC);
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
