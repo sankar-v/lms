@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict
-from src.agents.orchestrator import AgentOrchestrator
+from src.agents import AgentOrchestrator
 from src.api.documents import router as documents_router
 from src.config import settings
 

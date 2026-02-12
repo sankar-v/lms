@@ -1,8 +1,8 @@
 from typing import List, Dict, Any
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langgraph.graph import Graph, StateGraph
-from src.agents.qa_agent import QAAgent
-from src.agents.recommendation_agent import RecommendationAgent
+from .qa_agent import QAAgent
+from .recommendation_agent import RecommendationAgent
 
 class AgentOrchestrator:
     """Orchestrates LangGraph agents for chat and recommendations"""

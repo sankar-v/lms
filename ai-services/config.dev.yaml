@@ -1,0 +1,14 @@
+# Development configuration
+llm:
+  model: "gpt-3.5-turbo"
+  temperature: 0.7
+
+database:
+  url: "postgresql://lms_user:lms_password@localhost:5432/lms_dev"
+
+backend:
+  api_url: "http://localhost:8000"
+
+rag:
+  top_k_results: 3
+  chunk_size: 500

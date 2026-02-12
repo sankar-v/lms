@@ -1,0 +1,25 @@
+# LLM Configuration
+llm:
+  openai_api_key: ""  # Override with OPENAI_API_KEY env var in production
+  model: "gpt-4"
+  temperature: 0.7
+
+# Database Configuration (PostgreSQL with pgvector)
+database:
+  url: "postgresql://lms_user:lms_password@localhost:5432/lms_db"
+
+# Embedding Model
+embedding:
+  model: "text-embedding-3-small"
+  dimension: 1536
+
+# RAG Configuration
+rag:
+  chunk_size: 1000
+  chunk_overlap: 200
+  top_k_results: 5
+  similarity_threshold: 0.7
+
+# Backend Service
+backend:
+  api_url: "http://localhost:8000"

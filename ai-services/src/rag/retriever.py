@@ -1,7 +1,7 @@
 from typing import List, Dict
-from src.vector_store.client import VectorStoreClient
-from src.rag.embeddings import DocumentEmbedder
-from src.config import settings
+from ..vector_store.client import VectorStoreClient
+from .embeddings import DocumentEmbedder
+from ..config import settings
 
 class DocumentRetriever:
     """Retrieves relevant documents from vector store"""

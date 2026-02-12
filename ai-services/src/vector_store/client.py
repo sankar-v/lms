@@ -3,7 +3,7 @@ import logging
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from pgvector.sqlalchemy import Vector
-from src.config import settings
+from ..config import settings
 
 logger = logging.getLogger(__name__)
 

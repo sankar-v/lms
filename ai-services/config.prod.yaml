@@ -1,0 +1,14 @@
+# Production configuration overrides
+llm:
+  model: "gpt-4"
+  temperature: 0.5
+
+database:
+  url: "postgresql://prod_user:prod_password@db.prod.example.com:5432/lms_prod"
+
+backend:
+  api_url: "https://api.prod.example.com"
+
+rag:
+  top_k_results: 10
+  similarity_threshold: 0.75

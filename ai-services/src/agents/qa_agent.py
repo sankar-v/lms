@@ -1,9 +1,9 @@
 from typing import List, Dict, Any
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
-from src.rag.retriever import DocumentRetriever
-from src.rag.generator import AnswerGenerator
-from src.config import settings
+from ..rag.retriever import DocumentRetriever
+from ..rag.generator import AnswerGenerator
+from ..config import settings
 
 class QAAgent:
     """Agent for handling Q&A using RAG pipeline"""

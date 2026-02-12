@@ -2,7 +2,7 @@ from typing import List
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from src.config import settings
+from ..config import settings
 
 class DocumentEmbedder:
     """Handles document loading, chunking, and embedding"""
