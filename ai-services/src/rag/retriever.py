@@ -1,6 +1,6 @@
 from typing import List, Dict
 from ..vector_store.client import VectorStoreClient
-from .embeddings import DocumentEmbedder
+from ..embeddings import EmbeddingService
 from ..config import settings
 
 class DocumentRetriever:
@@ -8,15 +8,15 @@ class DocumentRetriever:
     
     def __init__(self):
         self.vector_store = VectorStoreClient()
-        self.embedder = DocumentEmbedder()
+        self.embedding_service = EmbeddingService()
     
     async def retrieve(self, query: str, top_k: int = None) -> List[Dict]:
         """Retrieve relevant documents for a query"""
         if top_k is None:
             top_k = settings.TOP_K_RESULTS
         
-        # Generate query embedding
-        query_embedding = await self.embedder.embed_text(query)
+        # Generate query embedding using the same service as ingestion
+        query_embedding = await self.embedding_service.embed(query)
         
         # Search vector store
         results = await self.vector_store.search(
@@ -37,7 +37,7 @@ class DocumentRetriever:
         if top_k is None:
             top_k = settings.TOP_K_RESULTS
         
-        query_embedding = await self.embedder.embed_text(query)
+        query_embedding = await self.embedding_service.embed(query)
         
         results = await self.vector_store.search_with_filter(
             query_embedding=query_embedding,

@@ -1,6 +1,6 @@
 # LLM Configuration
 llm:
-  openai_api_key: ""  # Override with OPENAI_API_KEY env var in production
+  openai_api_key: "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"
   model: "gpt-4"
   temperature: 0.7
 
@@ -18,7 +18,7 @@ rag:
   chunk_size: 1000
   chunk_overlap: 200
   top_k_results: 5
-  similarity_threshold: 0.7
+  similarity_threshold: 0.3
 
 # Backend Service
 backend:

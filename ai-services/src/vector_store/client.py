@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from pgvector.sqlalchemy import Vector
 from ..config import settings
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +50,7 @@ class VectorStoreClient:
                     query = text("""
                         INSERT INTO document_embeddings 
                         (content, embedding, document_id, chunk_id, source, metadata)
-                        VALUES (:content, :embedding, :document_id, :chunk_id, :source, :metadata)
+                        VALUES (:content, :embedding, :document_id, :chunk_id, :source, CAST(:metadata AS jsonb))
                         ON CONFLICT (chunk_id) DO UPDATE SET
                             content = EXCLUDED.content,
                             embedding = EXCLUDED.embedding,
@@ -62,7 +63,7 @@ class VectorStoreClient:
                         "document_id": doc.get("document_id", ""),
                         "chunk_id": doc.get("chunk_id", ""),
                         "source": doc.get("source", ""),
-                        "metadata": doc.get("metadata", {})
+                        "metadata": json.dumps(doc.get("metadata", {}))
                     })
                     inserted_count += 1
                 
