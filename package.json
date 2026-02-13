@@ -4,9 +4,9 @@
   "private": true,
   "description": "Agentic AI-Powered Engineering Platform Learning and Onboarding Assistant",
   "scripts": {
-    "setup": "chmod +x scripts/*.sh && ./scripts/setup.sh",
-    "dev": "chmod +x scripts/start-dev.sh && ./scripts/start-dev.sh",
-    "seed": "chmod +x scripts/seed-data.sh && ./scripts/seed-data.sh",
+    "setup": "node -e \"process.platform === 'win32' ? require('child_process').execSync('powershell -ExecutionPolicy Bypass -File scripts/setup.ps1', {stdio: 'inherit'}) : require('child_process').execSync('chmod +x scripts/*.sh && ./scripts/setup.sh', {stdio: 'inherit'})\"",
+    "dev": "node -e \"process.platform === 'win32' ? require('child_process').execSync('powershell -ExecutionPolicy Bypass -File scripts/start-dev.ps1', {stdio: 'inherit'}) : require('child_process').execSync('chmod +x scripts/start-dev.sh && ./scripts/start-dev.sh', {stdio: 'inherit'})\"",
+    "seed": "node -e \"process.platform === 'win32' ? require('child_process').execSync('powershell -ExecutionPolicy Bypass -File scripts/seed-data.ps1', {stdio: 'inherit'}) : require('child_process').execSync('chmod +x scripts/seed-data.sh && ./scripts/seed-data.sh', {stdio: 'inherit'})\"",
     "frontend:dev": "cd frontend && npm run dev",
     "backend:dev": "cd backend && source venv/bin/activate && uvicorn app.main:app --reload",
     "ai:dev": "cd ai-services && source venv/bin/activate && uvicorn main:app --reload --port 8001"

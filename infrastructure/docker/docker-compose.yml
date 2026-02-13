@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # PostgreSQL Database with pgvector
   postgres:
@@ -13,8 +11,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
-      - ./database/seeds/sample_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
+      - ../../database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ../../database/seeds/sample_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U lms_user -d lms_db"]
       interval: 10s
@@ -24,7 +22,7 @@ services:
   # Backend API
   backend:
     build:
-      context: ./backend
+      context: ../../backend
       dockerfile: ../infrastructure/docker/Dockerfile.backend
     container_name: lms_backend
     environment:
@@ -37,13 +35,13 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ./backend:/app
+      - ../../backend:/app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
   # AI Services
   ai-services:
     build:
-      context: ./ai-services
+      context: ../../ai-services
       dockerfile: ../infrastructure/docker/Dockerfile.ai-services
     container_name: lms_ai_services
     environment:
@@ -56,13 +54,13 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ./ai-services:/app
+      - ../../ai-services:/app
     command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
 
   # Frontend
   frontend:
     build:
-      context: ./frontend
+      context: ../../frontend
       dockerfile: ../infrastructure/docker/Dockerfile.frontend
     container_name: lms_frontend
     environment:
@@ -72,7 +70,7 @@ services:
     depends_on:
       - backend
     volumes:
-      - ./frontend:/app
+      - ../../frontend:/app
       - /app/node_modules
     command: npm run dev -- --host 0.0.0.0
 
