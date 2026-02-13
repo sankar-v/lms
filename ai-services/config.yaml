@@ -1,6 +1,6 @@
 # LLM Configuration
 llm:
-  openai_api_key: "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"
+  openai_api_key: 
   model: "gpt-4"
   temperature: 0.7
 
